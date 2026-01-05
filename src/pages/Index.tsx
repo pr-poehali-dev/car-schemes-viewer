@@ -128,6 +128,20 @@ const Index = () => {
     setSelectedYear('');
   };
 
+  const handleSaveToDevice = (scheme: ElectricalScheme) => {
+    const link = document.createElement('a');
+    link.href = scheme.imageUrl;
+    link.download = `${scheme.brand}_${scheme.model}_${scheme.year}_${scheme.name}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast({
+      title: 'Сохранено',
+      description: 'Схема сохранена на устройство'
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
@@ -352,10 +366,22 @@ const Index = () => {
                   <div className="aspect-video bg-muted rounded border border-border flex items-center justify-center">
                     <Icon name="Image" size={48} className="text-muted-foreground" />
                   </div>
-                  <Button variant="outline" className="w-full mt-4 gap-2">
-                    <Icon name="Eye" size={16} />
-                    Просмотр
-                  </Button>
+                  <div className="flex gap-2 mt-4">
+                    <Button variant="outline" className="flex-1 gap-2">
+                      <Icon name="Eye" size={16} />
+                      Просмотр
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSaveToDevice(scheme);
+                      }}
+                    >
+                      <Icon name="Download" size={16} />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -374,10 +400,13 @@ const Index = () => {
           <div className="aspect-video bg-muted rounded border border-border flex items-center justify-center">
             <Icon name="Image" size={96} className="text-muted-foreground" />
           </div>
-          <div className="flex gap-2">
-            <Button className="flex-1 gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button 
+              className="flex-1 gap-2"
+              onClick={() => selectedScheme && handleSaveToDevice(selectedScheme)}
+            >
               <Icon name="Download" size={18} />
-              Скачать
+              Сохранить на устройство
             </Button>
             <Button variant="outline" className="flex-1 gap-2">
               <Icon name="Printer" size={18} />
