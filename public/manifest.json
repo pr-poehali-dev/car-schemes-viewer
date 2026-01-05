@@ -1,0 +1,27 @@
+{
+  "name": "AutoScheme - Электросхемы автомобилей",
+  "short_name": "AutoScheme",
+  "description": "Профессиональное приложение для просмотра электрических схем автомобилей",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1F2C",
+  "theme_color": "#0EA5E9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["automotive", "utilities", "productivity"],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
