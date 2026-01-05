@@ -9,11 +9,12 @@ import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 
 const carBrands = [
-  'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Chevrolet',
+  'Lada', 'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Chevrolet',
   'Nissan', 'Hyundai', 'Kia', 'Mazda', 'Subaru', 'Lexus', 'Volvo', 'Porsche'
 ];
 
 const modelsByBrand: Record<string, string[]> = {
+  'Lada': ['Vesta', 'Granta', 'Largus', 'Niva', 'Kalina', 'Priora', 'Samara', 'XRAY'],
   'Audi': ['A3', 'A4', 'A6', 'Q5', 'Q7'],
   'BMW': ['3 Series', '5 Series', 'X3', 'X5', 'X7'],
   'Mercedes-Benz': ['C-Class', 'E-Class', 'GLE', 'GLC', 'S-Class'],
