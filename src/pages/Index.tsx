@@ -80,6 +80,7 @@ const Index = () => {
   const [uploadBrand, setUploadBrand] = useState('');
   const [uploadModel, setUploadModel] = useState('');
   const [uploadYear, setUploadYear] = useState('');
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const { toast } = useToast();
 
   const availableModels = selectedBrand ? modelsByBrand[selectedBrand] || [] : [];
@@ -91,6 +92,13 @@ const Index = () => {
     return true;
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFile(file);
+    }
+  };
+
   const handleUpload = () => {
     if (!uploadBrand || !uploadModel || !uploadYear || !newSchemeName) {
       toast({
@@ -101,13 +109,24 @@ const Index = () => {
       return;
     }
 
+    if (!uploadedFile) {
+      toast({
+        title: 'Ошибка',
+        description: 'Выберите файл изображения',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(uploadedFile);
+
     const newScheme: ElectricalScheme = {
       id: schemes.length + 1,
       brand: uploadBrand,
       model: uploadModel,
       year: uploadYear,
       name: newSchemeName,
-      imageUrl: '/placeholder.svg'
+      imageUrl: imageUrl
     };
 
     setSchemes([...schemes, newScheme]);
@@ -116,6 +135,7 @@ const Index = () => {
     setUploadBrand('');
     setUploadModel('');
     setUploadYear('');
+    setUploadedFile(null);
 
     toast({
       title: 'Успешно',
@@ -229,8 +249,14 @@ const Index = () => {
                     <Input
                       id="scheme-file"
                       type="file"
-                      accept="image/*,.pdf"
+                      accept="image/png,image/jpeg,image/jpg"
+                      onChange={handleFileChange}
                     />
+                    {uploadedFile && (
+                      <p className="text-sm text-muted-foreground">
+                        Выбран файл: {uploadedFile.name}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-end gap-2">
