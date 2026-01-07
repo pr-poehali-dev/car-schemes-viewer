@@ -118,29 +118,34 @@ const Index = () => {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(uploadedFile);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const imageUrl = e.target?.result as string;
 
-    const newScheme: ElectricalScheme = {
-      id: schemes.length + 1,
-      brand: uploadBrand,
-      model: uploadModel,
-      year: uploadYear,
-      name: newSchemeName,
-      imageUrl: imageUrl
+      const newScheme: ElectricalScheme = {
+        id: schemes.length + 1,
+        brand: uploadBrand,
+        model: uploadModel,
+        year: uploadYear,
+        name: newSchemeName,
+        imageUrl: imageUrl
+      };
+
+      setSchemes([...schemes, newScheme]);
+      setUploadDialogOpen(false);
+      setNewSchemeName('');
+      setUploadBrand('');
+      setUploadModel('');
+      setUploadYear('');
+      setUploadedFile(null);
+
+      toast({
+        title: 'Успешно',
+        description: 'Схема добавлена'
+      });
     };
-
-    setSchemes([...schemes, newScheme]);
-    setUploadDialogOpen(false);
-    setNewSchemeName('');
-    setUploadBrand('');
-    setUploadModel('');
-    setUploadYear('');
-    setUploadedFile(null);
-
-    toast({
-      title: 'Успешно',
-      description: 'Схема добавлена'
-    });
+    
+    reader.readAsDataURL(uploadedFile);
   };
 
   const resetFilters = () => {
