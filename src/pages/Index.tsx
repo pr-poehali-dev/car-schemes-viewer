@@ -390,8 +390,12 @@ const Index = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="aspect-video bg-muted rounded border border-border flex items-center justify-center">
-                    <Icon name="Image" size={48} className="text-muted-foreground" />
+                  <div className="aspect-video bg-muted rounded border border-border overflow-hidden">
+                    <img 
+                      src={scheme.imageUrl} 
+                      alt={scheme.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="flex gap-2 mt-4">
                     <Button variant="outline" className="flex-1 gap-2">
@@ -424,8 +428,12 @@ const Index = () => {
               {selectedScheme?.brand} {selectedScheme?.model} • {selectedScheme?.year}
             </DialogDescription>
           </DialogHeader>
-          <div className="aspect-video bg-muted rounded border border-border flex items-center justify-center">
-            <Icon name="Image" size={96} className="text-muted-foreground" />
+          <div className="bg-muted rounded border border-border overflow-hidden">
+            <img 
+              src={selectedScheme?.imageUrl} 
+              alt={selectedScheme?.name}
+              className="w-full h-auto"
+            />
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
             <Button 
